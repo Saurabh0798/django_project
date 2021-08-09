@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% block title %} Categories {% endblock title %}
+
+{% block body %}
+
+
+
+
+<div class=" container h-100 p-5 text-white bg-success rounded-3 my-2">
+          <h2>Welcome To Our Website</h2>
+          <p>Here you will find all Necessary Facilities of your city.</p>
+          <button class="btn btn-outline-light zoom" type="button" onClick="location.href='/addbussiness' " >Click here to Add a Bussiness</button>
+</div>
+      
+   
+<div class='container shadow-lg'>
+<div class="row">
+{%  for c in C%}
+  <div class="col-sm-3 zoom my-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{c.Cname}}</h5>
+        <img class='update' src="{{c.Cimage.url}}"/>
+        <a href="{{c.Curl}}" name='saurabh' class="btn btn-primary"> Find {{c.Cname}}</a>
+      </div>
+    </div>
+  </div>
+   {% endfor%}
+  </div>
+  </div>
+
+   <footer class="text-center text-white" style="background-color: #f1f1f1; position:sticky;">
+     
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-dark" href="#">AnyPlace.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+ 
+
+
+{% endblock body %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
