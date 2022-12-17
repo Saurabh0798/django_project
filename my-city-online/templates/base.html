@@ -1,0 +1,291 @@
+{% load socialaccount %}
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-signin-client_id" content="98748997838-beadfvu9050c3hhkkf2ik73u5u0m3b2g.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <title> {% block title %}{% endblock title %}| My City Online</title>
+    <style>
+      body {
+        background-color: powderblue;
+        background-repeat: repeat-y;
+        background-size: cover;
+        background-position: center;
+
+      }
+
+      .A{
+        color:brown; 
+        text-decoration: none;
+        font-size:larger;
+      }
+     
+
+      .update {
+        height: 250px;
+        width: 200px;
+        border-radius: 50px;
+
+      }
+
+      .update1 {
+        height: 130px;
+        width: 120px;
+        border-radius: 4px;
+        padding-right: 3px;
+        padding-top: 3px;
+        float: left;
+        text-align: right;
+      }
+
+      .navbar-brand {
+        font-size: 23px !important;
+      }
+
+      .nav-link {
+        font-size: 17px !important;
+        
+      }
+
+      .zoom {
+        transition: transform 0.3s;
+      }
+
+      .zoom:hover {
+        transform: scale(1.1);
+      }
+    </style>
+  </head>
+
+  <body>
+    {% block content %}{% endblock content %}
+
+
+    <nav class="navbar navbar-expand-lg  navbar-dark bg-dark py-2 ">
+      <div class="container-fluid font-size">
+        
+        <img src='static/logo.png' style='width:70px; height:50px; border-radius: 10px;'>
+        <div class="navbar-header ">
+          <a class="navbar-brand px-2" style="font-family:Arial, Helvetica, sans-serif; color: antiquewhite;" href="#"> My City Online</a>
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item px-2 ml-2">
+              <a class="nav-link active " aria-current="page" href="/"><i class="bi bi-house"></i> Home</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link " href="/categories"><i class="bi bi-box-seam"></i> Categories</a>
+            </li>
+
+            <li class="nav-item px-2">
+              <a class="nav-link" href='/addbussiness'><i class="bi bi-briefcase"></i> Add Bussiness</a>
+            </li>
+            <li class="nav-item px-2">
+              <a class="nav-link" href='/contact'><i class="bi bi-person-lines-fill"></i> Contact Us</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-x-diamond-fill"></i>  More
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <li><a class="dropdown-item" href="/newc">Add New Category</a></li>
+               <li><a class="dropdown-item" href="/about">About Us</a></li>
+               <li><hr class="dropdown-divider"></li>
+               <li><a class="dropdown-item disabled" >Help</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+          
+          <form class="d-flex" action='/search' method='GET'>
+            <input class="form-control me-1" name='search' type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+          {% if user.is_authenticated %}
+          <a class="nav-link  Disable" style='color: aquamarine;'>Welcome {{request.user}}</a>
+          <a class="btn btn-primary mx-1 " href='/logoutuser'><i class="bi bi-power"></i> Logout</a>
+          {% else %}
+          <button type="button" class="btn btn-primary mx-2" data-bs-toggle="modal"
+            data-bs-target="#loginModal">Login</button>
+          <button type="button" class="btn btn-info " data-bs-toggle="modal"
+            data-bs-target="#registerModal">Register</button>
+          {% endif %}
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- loginModal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel">Login</h3>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <br>
+            Not registered yet, <a class='A' data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#registerModal">click here to register</a><hr>
+          <div class="modal-body">
+            <form method='POST' action='/loginuser'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="InputUsername1" class="form-label">Username</label>
+                <input type="text" class="form-control" id="InputUsername1" name='InputUsername1'>
+              </div>
+              <div class="mb-3">
+                <label for="InputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="InputPassword1" name='InputPassword1'>
+              </div>
+
+              <button type="submit" class="btn btn-primary">Sign in</button>
+            </form><br>
+                 
+           
+              <p style='text-align: center;'>or sign in with</p><br>
+              <div class='container' style="display:-moz-grid;">
+                <a class='A border border-primary'  style="margin-left: 30px;" href='{% provider_login_url 'facebook' %}'><i class="bi bi-facebook"></i>  Facebook</a>
+                <a class='A border border-primary'  style="margin-left: 170px;"  href='{% provider_login_url 'google' %}'><i class="bi bi-google"></i>  Google</a>
+              </div>  
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- registerModal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel1">Fill Details To Register</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action='/signup'>
+              {% csrf_token %}
+
+
+              <div class="mb-3">
+                <label for="InputUsername" class="form-label">Username</label>
+                <input type="text" class="form-control" id="InputUsername" name='InputUsername' maxlength=8 required>
+              </div>
+
+              <div class="mb-3">
+                <label for="InputPassword" class="form-label">Password</label>
+                <input type="password" class="form-control" id="InputPassword" name='InputPassword'>
+              </div>
+
+              <div class="mb-3">
+                <label for="InputEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="InputEmail" name='InputEmail'>
+              </div>
+
+
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Check me out</label>
+              </div>
+              <button type="submit" class="btn btn-primary">Sign Up</button>
+            </form><br>
+
+            already registered <a class="A" data-bs-toggle="modal" data-bs-dismiss="modal"
+              data-bs-target="#loginModal">click here to login</a>
+          </div>
+          <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% block body %}{% endblock body %}
+
+
+
+  
+  {% for i in item %}
+  <h3 class='container'>Here are Search Results</h3>
+  <div class='container shadow-lg bg-info rounded my-5 p-10 col-md-6'>
+  <a  style='font-size:25px; color:indigo; padding: 20px; ' href='{{i.Curl}}'> {{i.Cname}}</a>
+  </div> <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  {% endfor %}
+  
+  
+
+
+
+
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+  </body>
+
+</html>

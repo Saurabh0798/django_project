@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% if a %}
+<div class='container'>
+<ol class="list-group list-group-numbered">
+
+{% for i in a %}
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">{{i.name}}</div>
+     {{i.mobile}} <br>
+     {{ i.Address}}
+    </div>
+     </li>
+ {% endfor %}
+  
+</ol>
+</div>
+{% else %}
+<div class='container border border-primary my-5 p-5'>
+<h4 style='padding:5px'>No Data Available</h4>
+</div><br> <br> <br> <br> <br> <br> <br> <br> <br> <br><br> <br>
+{% endif %}
+{% endblock body %}

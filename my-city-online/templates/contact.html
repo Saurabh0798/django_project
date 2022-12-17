@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %} ContactUs {% endblock title %}
+ {% block body %} 
+ <h1 style="text-align: center;">Contact Us</h1>
+<div class='container my-4 p-5 border-primary border'>
+<form class="row g-3" method="POST" action='/contact'>
+{% csrf_token %}
+  {{form}}
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Contact us</button>
+  </div>
+</form>
+</div>
+<br> <br>  <br> 
+
+ <footer class="text-center text-white" style="background-color: #f1f1f1; position:sticky;">
+     
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-dark" href="#">AnyPlace.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+{% endblock body %}

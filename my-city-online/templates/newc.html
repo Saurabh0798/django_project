@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %} Add Category {% endblock title %}
+ {% block body %} 
+ <h1 style="text-align: center;">Tell Us to Add New Category</h1>
+<div class='container my-4 p-5 border-primary border'>
+<form class="row g-3" method="POST" action='/newc'>
+{% csrf_token %}
+  <div class="col-md-7">
+    <label for="inputName" class="form-label"> Category Name</label>
+    <input type="text" class="form-control" name="inputName" required>
+  </div>
+
+  <div class="col-md-7">
+    <label for="inputNamey" class="form-label"> Your Name</label>
+    <input type="text" class="form-control" name="inputNamey" required>
+  </div>
+  
+  <div class="col-7">
+    <label for="inputMobile" class="form-label"> Your Mobile Number</label>
+    <input type="text" class="form-control" name="inputMobile" >
+  </div>
+  <div class="col-md-7">
+    <label for="inputCity" class="form-label">City</label>
+    <input type="text" class="form-control" name="inputCity">
+  </div>
+  <div class="col-12">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" id="gridCheck">
+      <label class="form-check-label" for="gridCheck">
+        Check me out
+      </label>
+    </div>
+  </div>
+  <div class="col-12">
+    <button type="submit" class="btn btn-primary">Add Category</button>
+  </div>
+</form>
+</div> <br> <br><br>
+
+ <footer class="text-center text-white" style="background-color: #f1f1f1; position:sticky;">
+     
+      <div class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+        © 2021 Copyright:
+        <a class="text-dark" href="#">AnyPlace.com</a>
+      </div>
+      <!-- Copyright -->
+    </footer>
+{% endblock body %}
